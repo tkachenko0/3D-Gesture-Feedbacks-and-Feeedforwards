@@ -14,7 +14,7 @@
     cd 3d-Gesture-Feedbacks-and-Feeedforwards
     ```
 
-2. Create a virtal environment:
+2. Create a virtual environment:
 
     ```bash
     python3.9 -m venv venv # potete provare prima anche con la versione di py che avete già, ma non è detto che non vi causi problemi dopo
