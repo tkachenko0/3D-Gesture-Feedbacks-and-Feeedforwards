@@ -17,7 +17,7 @@
 2. Create a virtal environment:
 
     ```bash
-    python3.9 -m venv venv
+    python3.9 -m venv venv # potete provare prima anche con la versione di py che avete già, ma non è detto che non vi causi problemi dopo
     ```
 
 3. Activate the virtual environment:
@@ -40,6 +40,6 @@
 
 > **Note:** If you install new dependencies, make sure to update the `requirements.txt` file:
 
-    ```bash
-    pip3 freeze > requirements.txt
-    ```
+```bash
+pip3 freeze > requirements.txt
+```
