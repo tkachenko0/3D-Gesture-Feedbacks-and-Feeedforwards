@@ -2,6 +2,8 @@ MP_Data/
 Logs/
 dist/
 
+.properties
+
 # Mac/OSX
 .DS_Store
 
