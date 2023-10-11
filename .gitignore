@@ -1,6 +1,7 @@
 MP_Data/
 Logs/
 dist/
+Dataset_atomic_gestures
 
 .properties
 
