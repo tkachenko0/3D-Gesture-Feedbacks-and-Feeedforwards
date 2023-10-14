@@ -71,7 +71,7 @@ def augment_dataset(dataset_path: str, prefix_to_add: str) -> None:
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-        print(f"Processing video #{idx_video} / {len(video_names)}...")
+        print(f"Processing video #{idx_video+1} / {len(video_names)}...")
 
         new_video_path = os.path.join(
             dataset_path, f"{prefix_to_add}{video_name}")
