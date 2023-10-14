@@ -29,14 +29,13 @@ def build_training_data(video_dir: str, window_len: int, target_joint: mp.soluti
             results = holistic.process(frame_rgb)
 
             if results.pose_landmarks:
-                right_wrist = results.pose_landmarks.landmark[target_joint]
-                wrist_coords = [
-                    right_wrist.x,
-                    right_wrist.y,
-                    # right_wrist.z
-                ]
+                target_coords = results.pose_landmarks.landmark[target_joint]
 
-                frame_buffer.append(wrist_coords)
+                frame_buffer.append([
+                    target_coords.x,
+                    target_coords.y,
+                    # target_coords.z
+                ])
 
                 if len(frame_buffer) >= window_len:
                     X_training.append(frame_buffer[:int(window_len/2)])
