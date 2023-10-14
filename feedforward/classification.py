@@ -1,10 +1,10 @@
 import os
 import cv2
 import numpy as np
-import mediapipe as mp
+import mediapipe
 
 
-def build_training_data(video_dir: str, window_len: int) -> None:
+def build_training_data(video_dir: str, window_len: int, target_joint: mediapipe.solutions.holistic.PoseLandmark) -> None:
 
     holistic = mp.solutions.holistic.Holistic()
 
@@ -29,7 +29,7 @@ def build_training_data(video_dir: str, window_len: int) -> None:
             results = holistic.process(frame_rgb)
 
             if results.pose_landmarks:
-                right_wrist = results.pose_landmarks.landmark[mp.solutions.holistic.PoseLandmark.RIGHT_WRIST]
+                right_wrist = results.pose_landmarks.landmark[target_joint]
                 wrist_coords = [
                     right_wrist.x,
                     right_wrist.y,
