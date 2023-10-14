@@ -18,16 +18,12 @@
 
     ```bash
     python3.9 -m venv <YOUR-VENV-NAME>
-    # or if you use conda
-    conda create -n <YOUR-VENV-NAME> python=3.9
     ```
 
 3. Activate the virtual environment:
 
     ```bash
     source <YOUR-VENV-NAME>/bin/activate
-    # or if you use conda
-    conda activate <YOUR-VENV-NAME>
     ```
 
 4. Install the dependencies:
