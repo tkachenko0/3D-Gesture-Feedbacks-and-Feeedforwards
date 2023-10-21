@@ -11,7 +11,7 @@
     ```bash
     git clone https://github.com/tkachenko0/3d-Gesture-Feedbacks-and-Feeedforwards.git
     # cd into the project directory
-    cd 3d-Gesture-Feedbacks-and-Feeedforwards
+    cd 3D-Gesture-Feedbacks-and-Feeedforwards
     ```
 
 2. Create a virtual environment:
@@ -39,6 +39,7 @@
     ```
 
     ```properties
+    # Example of the .properties file
     CAMERA_INDEX=1 # the index of the camera to use
     ```
 

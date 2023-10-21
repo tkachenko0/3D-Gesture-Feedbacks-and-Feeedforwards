@@ -62,7 +62,15 @@ def apply_random_rotation(image: cv2.typing.MatLike) -> cv2.typing.MatLike:
     return augmented_image
 
 
-def augment_dataset(dataset_path: str, prefix_to_add: str) -> None:
+def apply_panning(image: cv2.typing.MatLike, direction='left') -> cv2.typing.MatLike:
+    if direction == 'left':
+        panned_image = np.roll(image, -1, axis=1)
+    elif direction == 'right':
+        panned_image = np.roll(image, 1, axis=1)
+    return panned_image
+
+
+def augment_dataset_rotation(dataset_path: str, prefix_to_add: str) -> None:
     video_names = os.listdir(dataset_path)
 
     for idx_video, video_name in enumerate(video_names):
@@ -73,11 +81,8 @@ def augment_dataset(dataset_path: str, prefix_to_add: str) -> None:
 
         print(f"Processing video #{idx_video+1} / {len(video_names)}...")
 
-        new_video_path = os.path.join(
-            dataset_path, f"{prefix_to_add}{video_name}")
-
-        writer = cv2.VideoWriter(
-            new_video_path, cv2.VideoWriter_fourcc(*'DIVX'), 20, (width, height))
+        new_video_path = os.path.join(dataset_path, f"{prefix_to_add}{video_name}")
+        writer = cv2.VideoWriter(new_video_path, cv2.VideoWriter_fourcc(*'DIVX'), 20, (width, height))
 
         while cap.isOpened():
             ret, frame = cap.read()
@@ -92,3 +97,4 @@ def augment_dataset(dataset_path: str, prefix_to_add: str) -> None:
         writer.release()
 
         cap.release()
+

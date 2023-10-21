@@ -30,16 +30,16 @@ def build_training_data(video_dir: str, window_len: int, target_joint: mp.soluti
 
             if results.pose_landmarks:
                 target_coords = results.pose_landmarks.landmark[target_joint]
+                nose_coords = results.pose_landmarks.landmark[mp.solutions.holistic.PoseLandmark.NOSE]
 
-                frame_buffer.append([
-                    target_coords.x,
-                    target_coords.y,
-                    # target_coords.z
-                ])
+                target_input = [target_coords.x,  target_coords.y]
+                nose_input = [nose_coords.x, nose_coords.y]
+
+                frame_buffer.append(target_input + nose_input)
 
                 if len(frame_buffer) >= window_len:
                     X_training.append(frame_buffer[:int(window_len/2)])
-                    y_training.append(frame_buffer[-1])
+                    y_training.append(frame_buffer[-1][:2])
                     frame_buffer = frame_buffer[1:]
 
             cv2.imshow('Video', frame)
