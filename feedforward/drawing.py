@@ -42,24 +42,11 @@ def draw_frame(frame_index, landmarks_list):
     plt.gca().invert_yaxis()
 
 
-def prob_viz(res, actions, frame):
+def prob_viz(res, actions, input_frame):
     colors = [(245, 117, 16), (117, 245, 16), (16, 117, 245)]
-    output_frame = frame.copy()
-
-    for idx, prob in enumerate(res):
-        cv2.rectangle(output_frame, (0, 60 + idx * 40),
-                      (int(prob * 100), 90 + idx * 40), colors[idx], -1)
-        cv2.putText(output_frame, actions[idx], (0, 85 + idx * 40),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-
-        # open gif of the current gesture if prob > 90%
-        # print(actions[idx], prob)
-        # if prob > 0.9:
-        #    gif_path = os.path.join(DATA_PATH, actions[idx], f'{actions[idx]}.gif')
-        # Check if a GIF for this action is already running
-        #    if actions[idx] not in GIF_THREADS or not GIF_THREADS[actions[idx]].is_alive():
-        #        thread = threading.Thread(target=display_gif_thread, args=(gif_path, actions[idx]))
-        #        thread.start()
-        #        GIF_THREADS[actions[idx]] = thread
-
+    output_frame = input_frame.copy()
+    for num, prob in enumerate(res):
+        cv2.rectangle(output_frame, (0,60+num*40), (int(prob*100), 90+num*40), colors[num], -1)
+        cv2.putText(output_frame, actions[num], (0, 85+num*40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
+        
     return output_frame

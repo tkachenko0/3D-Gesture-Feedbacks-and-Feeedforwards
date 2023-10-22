@@ -31,15 +31,13 @@ def register_videos(data_path: str, prefix: str, num_videos: int, num_frames_per
 
         video_filename = os.path.join(data_path, f"{prefix}{idx_video}.mp4")
 
-        writer = cv2.VideoWriter(
-            video_filename, cv2.VideoWriter_fourcc(*'DIVX'), 20, (width, height))
+        writer = cv2.VideoWriter(video_filename, cv2.VideoWriter_fourcc(*'DIVX'), 20, (width, height))
 
         for idx_frame in range(num_frames_per_video):
             ret, frame = cap.read()
 
             if idx_frame == 0:
-                cv2.putText(frame, f'Action: {action_name}. Starting Video #{idx_video+1}', (120, 200),
-                            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 4, cv2.LINE_AA)
+                cv2.putText(frame, f'Action: {action_name}. Starting Video #{idx_video+1}', (120, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 4, cv2.LINE_AA)
                 cv2.imshow('Video', frame)
                 cv2.waitKey(3000)
             else:
@@ -107,8 +105,7 @@ def load_pose_landmarks_from_video(video_path: str) -> list:
 
 def apply_random_rotation(image: cv2.typing.MatLike) -> cv2.typing.MatLike:
     angle = np.random.randint(-10, 10)  # degrees
-    M = cv2.getRotationMatrix2D(
-        (image.shape[1] / 2, image.shape[0] / 2), angle, 1)
+    M = cv2.getRotationMatrix2D((image.shape[1] / 2, image.shape[0] / 2), angle, 1)
     augmented_image = cv2.warpAffine(
         image, M, (image.shape[1], image.shape[0]))
     return augmented_image
@@ -117,13 +114,11 @@ def apply_random_rotation(image: cv2.typing.MatLike) -> cv2.typing.MatLike:
 def augment_dataset_rotation(dataset_path: str, prefix_to_add: str) -> None:
     video_names = os.listdir(dataset_path)
 
-    for idx_video, video_name in enumerate(video_names):
+    for video_name in video_names:
         cap = cv2.VideoCapture(os.path.join(dataset_path, video_name))
 
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-        print(f"Processing video #{idx_video+1} / {len(video_names)}...")
 
         new_video_path = os.path.join(dataset_path, f"{prefix_to_add}{video_name}")
         writer = cv2.VideoWriter(new_video_path, cv2.VideoWriter_fourcc(*'DIVX'), 20, (width, height))
@@ -133,10 +128,9 @@ def augment_dataset_rotation(dataset_path: str, prefix_to_add: str) -> None:
             if not ret:
                 break
 
-            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame_rgb = apply_random_rotation(frame_rgb)
+            frame = apply_random_rotation(frame)
 
-            writer.write(frame_rgb)
+            writer.write(frame)
 
         writer.release()
 
