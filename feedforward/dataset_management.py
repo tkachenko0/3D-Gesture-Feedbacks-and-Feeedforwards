@@ -114,14 +114,6 @@ def apply_random_rotation(image: cv2.typing.MatLike) -> cv2.typing.MatLike:
     return augmented_image
 
 
-def apply_panning(image: cv2.typing.MatLike, direction='left') -> cv2.typing.MatLike:
-    if direction == 'left':
-        panned_image = np.roll(image, -1, axis=1)
-    elif direction == 'right':
-        panned_image = np.roll(image, 1, axis=1)
-    return panned_image
-
-
 def augment_dataset_rotation(dataset_path: str, prefix_to_add: str) -> None:
     video_names = os.listdir(dataset_path)
 
